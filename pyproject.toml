@@ -1,0 +1,55 @@
+[project]
+name = "mlops"
+version = "0.1.0"
+description = "MLOps tests"
+readme = "README.md"
+authors = [
+    { name = "Alexandr Silyuk", email = "sanya170301@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=3.0.6",
+    "requests>=2.34.2",
+    "ruff>=0.17.0",
+    "ty>=0.0.86",
+]
+
+[project.scripts]
+mlops = "mlops:main"
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+# Конфигурация из лекции, слайд 29.
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# E — стиль, F — ошибки кода, I — импорты, UP — современный синтаксис Python.
+select = ["E", "F", "I", "UP"]
+# Форматтер ориентируется на 100 символов, но длинные строки не считаем ошибкой.
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+# Конфигурация из лекции, слайд 35.
+[tool.ty.rules]
+possibly-unresolved-reference = "error"
+division-by-zero = "error"
+unused-ignore-comment = "warn"
+
+[tool.ty.src]
+include = ["src", "tests"]
+exclude = ["build"]
+
+[tool.ty.environment]
+python-version = "3.12"
